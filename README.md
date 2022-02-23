@@ -1,4 +1,4 @@
-# geofry_kimutai
+# geofry_kimutai php project for student attendance system
 attendance system in php.
 this is my latest project for student attendance system.
 
