@@ -33,6 +33,23 @@ function load_grade_list($connect)
 	return $output;
 }    
 
+// function to get school name
+function load_school_list($connect)
+{
+	$query = "
+	SELECT * FROM tbl_school ORDER BY school_name ASC
+	";
+	$statement = $connect->prepare($query);
+	$statement->execute();
+	$result = $statement->fetchAll();
+	$output = '';
+	foreach($result as $row)
+	{
+		$output .= '<option value="'.$row["school_id"].'">'.$row["school_name"].'</option>';
+	}
+	return $output;
+}    
+
 // function to calculate specific student attendance
 
 function get_attendance_percentage($connect, $student_id)
@@ -60,6 +77,7 @@ function get_attendance_percentage($connect, $student_id)
 		}
 	}
 }
+
 
 //function to get class attendance percentage
 
@@ -90,6 +108,65 @@ GROUP BY attendance_grade_id
 }
 
 
+//function to get entire school attendance percentage
+function get_school_percentage($connect, $grade_school_id)
+{
+	$query = "SELECT DISTINCT grade_school_id,
+    ROUND((SUM(CASE WHEN attendance_status = 'Present' THEN 1 ELSE 0 END)/COUNT(*)*100),2) as school_present
+
+FROM tbl_attendance WHERE grade_school_id = '".$grade_school_id."'  
+GROUP BY grade_school_id
+
+	";
+
+	$statement = $connect->prepare($query);
+	$statement->execute();
+	$result = $statement->fetchAll();
+	foreach($result as $row)
+	{
+		if($row["school_present"] > 0 && $row["school_present"] != '')
+		{
+			return $row["school_present"] . '%';
+		}
+		else 
+		{
+			return 'NA';
+		}
+	}
+}
+
+//function to get entire school attendance percentage remarks
+function get_school_percentage_remarks($connect, $grade_school_id)
+{
+	$query = "SELECT DISTINCT grade_school_id,
+    ROUND((SUM(CASE WHEN attendance_status = 'Present' THEN 1 ELSE 0 END)/COUNT(*)*100),2) as school_present
+
+FROM tbl_attendance WHERE grade_school_id = '".$grade_school_id."'  
+GROUP BY grade_school_id
+
+	";
+
+	$statement = $connect->prepare($query);
+	$statement->execute();
+	$result = $statement->fetchAll();
+	foreach($result as $row)
+	{
+		if($row["school_present"] > 70 && $row["school_present"] != '')
+		{
+			return 'YES';
+		}
+		else
+		{
+			return 'NO';
+		}
+	}
+}
+
+
+
+//function to get school attendance percentage
+
+
 //LEGIBLE TO SIT FOR EXAM OR NOT
 function check_exam_legibility($connect, $student_id)
 {
@@ -118,15 +195,16 @@ function check_exam_legibility($connect, $student_id)
 	}
 }
 
-// Class reamrks
+//school remarks
+
 function get_grade_remarks($connect, $attendance_grade_id)
 {
-	$query = "SELECT 
-		ROUND((SELECT COUNT(*) FROM tbl_attendance 
-		WHERE attendance_status = 'Present' 
-		AND atte$attendance_grade_id = '".$attendance_grade_id."') 
-	* 100 / COUNT(*)) AS class_percent FROM tbl_attendance 
-	WHERE atte$attendance_grade_id = '".$attendance_grade_id."' 
+	$query = "SELECT attendance_grade_id,
+    ROUND((SUM(CASE WHEN attendance_status = 'Present' THEN 1 ELSE 0 END)/COUNT(*)*100),2) as present
+
+FROM tbl_attendance WHERE attendance_grade_id = '".$attendance_grade_id."'  
+GROUP BY attendance_grade_id
+
 	";
 
 	$statement = $connect->prepare($query);
@@ -134,9 +212,8 @@ function get_grade_remarks($connect, $attendance_grade_id)
 	$result = $statement->fetchAll();
 	foreach($result as $row)
 	{
-		if($row["class_percent"] >= 70)
+		if($row["present"] > 70)
 		{
-			
 			return 'YES';
 		}
 		else
@@ -145,6 +222,7 @@ function get_grade_remarks($connect, $attendance_grade_id)
 		}
 	}
 }
+
 
 
 // function to get the class name
@@ -204,7 +282,7 @@ function Get_student_teacher_name($connect, $student_id)
 	}
 }
 
-// functio to get class name
+// function to get class name
 function Get_grade_name($connect, $grade_id)
 {
 	$query = "
@@ -257,6 +335,58 @@ function get_topic_covered($connect, $attendance_id)
 	foreach($result as $row)
 	{
 		return $row["topic"];
+	}
+}
+
+function get_hod_user_name($connect, $admin_id)
+{
+	$query = "
+	SELECT admin_user_name FROM tbl_admin 
+	WHERE admin_id = '".$admin_id."'
+	";
+
+	$statement = $connect->prepare($query);
+
+	$statement->execute();
+
+	$result = $statement->fetchAll();
+
+	foreach($result as $row)
+	{
+		if ($row["admin_user_name"]) {
+			# code...
+			return $row["admin_user_name"];
+		}
+		else {
+			
+			return 'NA';
+		}
+	}
+}
+
+function get_hod_SCHOOL_name($connect, $admin_id)
+{
+	$query = "
+	SELECT hod_school FROM tbl_admin 
+	WHERE admin_id = '".$admin_id."'
+	";
+
+	$statement = $connect->prepare($query);
+
+	$statement->execute();
+
+	$result = $statement->fetchAll();
+
+	foreach($result as $row)
+	{
+		if ($row["hod_school"] > 0) {
+			# code...
+			return $row["hod_school"];
+		}
+		else {
+			
+			return 'NA';
+		}
 	}
 }
 

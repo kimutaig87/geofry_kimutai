@@ -6,6 +6,19 @@ include('header.php');
 <head>
 <title></title>
 <style>
+   
+   table.dataTable tbody tr.myeven {
+      background-color: #ffffff;
+ }
+table.dataTable tbody tr.myodd {
+      background-color: #D9E1F2;
+ }
+   table.dataTable tbody tr.myeven:hover {
+      background-color: skyblue;
+ }
+ table.dataTable tbody tr.myodd:hover {
+      background-color: skyblue;
+ }
 .select2-dropdown {top: 22px !important; left: 8px !important;}
  
 .card-header{
@@ -13,12 +26,6 @@ include('header.php');
   color: white;
   font-size: 23px;
 }
- table.dataTable tbody tr.myeven:hover {
-      background-color: skyblue;
- }
- table.dataTable tbody tr.myodd:hover {
-      background-color: skyblue;
- }
 </style>
 <link rel="stylesheet" href="select2.min.css" />
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -107,7 +114,7 @@ include('header.php');
             <div class="row">
               <label class="col-md-4 text-right">Password <span class="text-danger">*</span></label>
               <div class="col-md-8">
-                <input type="password" name="teacher_password" id="teacher_password" class="form-control" />
+                <input type="text" name="teacher_password" id="teacher_password" class="form-control" autocomplete="off" />
                 <span id="error_teacher_password" class="text-danger"></span>
               </div>
             </div>
@@ -332,8 +339,8 @@ $(document).ready(function(){
       success:function(data)
       {
         $('#teacher_name').val(data.teacher_name);
-      
-        $('#teacher_grade_id').val(data.teacher_grade_id);
+        $('#teacher_password').val(data.teacher_password);
+         $('#teacher_grade_id').val(data.teacher_grade_id);
         
         $('#teacher_id').val(data.teacher_id);
         $('#modal_title').text('Edit Lecturer');

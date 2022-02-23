@@ -1,7 +1,6 @@
 <?php
 
 //index.php
-
 include('header.php');
 
 ?>
@@ -12,6 +11,12 @@ include('header.php');
  }
 table.dataTable tbody tr.myodd {
       background-color: #D9E1F2;
+ }
+table.dataTable tbody tr.myeven:hover {
+      background-color: skyblue;
+ }
+ table.dataTable tbody tr.myodd:hover {
+      background-color: skyblue;
  }
 
 
@@ -90,12 +95,6 @@ table.dataTable tbody tr.myodd {
     {
       z-index: 1600 !important; /* has to be larger than 1050 */
     }
-     table.dataTable tbody tr.myeven:hover {
-      background-color: skyblue;
- }
- table.dataTable tbody tr.myodd:hover {
-      background-color: skyblue;
- }
 </style>
 
 

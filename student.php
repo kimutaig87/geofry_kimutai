@@ -20,6 +20,12 @@ include('header.php');
 table.dataTable tbody tr.myodd {
       background-color: #D9E1F2;
  }
+ table.dataTable tbody tr.myeven:hover {
+      background-color: skyblue;
+ }
+ table.dataTable tbody tr.myodd:hover {
+      background-color: skyblue;
+ }
 
 select2-dropdown {
   top: 22px !important; left: 8px !important;
@@ -29,12 +35,6 @@ select2-dropdown {
   color: white;
   font-size: 23px;
 }
- table.dataTable tbody tr.myeven:hover {
-      background-color: skyblue;
- }
- table.dataTable tbody tr.myodd:hover {
-      background-color: skyblue;
- }
 
 
   </style>

@@ -2,7 +2,7 @@
 
 //student_action.php
 
-include('../main_admin/database_connection.php');
+include('database_connection.php');
 
 session_start();
 

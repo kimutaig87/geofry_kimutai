@@ -2,16 +2,25 @@
 
 //header.php
 
-include('../main_admin/database_connection.php');
-
+include('database_connection.php');
+session_start();  
+ if(!isset($_SESSION["admin_user_name"]))  
+ {  
+      header('location:login.php'); 
+ }  
+ 
+/*
 session_start();
 
-if(!isset($_SESSION["admin_id"]))
+if(!isset($_SESSION["main_admin_id"]))
 {
   header('location:login.php');
 }
 
+*/
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +82,9 @@ if(!isset($_SESSION["admin_id"]))
        <li class="nav-item"> 
         <a class="nav-link" href="index.php" style="background-color: white; color: #000000;">Gennerate Report</a>
       </li>
-      
+       <li class="nav-item">
+        <a class="nav-link" href="school.php">Schools</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="grade.php">Classes</a>
       </li>
@@ -88,15 +99,14 @@ if(!isset($_SESSION["admin_id"]))
         <a class="nav-link" href="attendance.php">Full Attendance Report</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Add New HOD / DEAN</a>
+        <a class="nav-link" href="hods.php">HODs</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="classPercentage.php">Class_Report</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="schoolPercentage.php">School_Report</a>
+        <a class="nav-link" href="schoolPercentage.php">school report</a>
       </li>
-      
       
       <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout</a>

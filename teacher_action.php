@@ -185,13 +185,15 @@ if(isset($_POST["action"]))
 				$data = array(
 					':teacher_name'		=>	$teacher_name,
 					
-					
+					':teacher_password' => password_hash($_POST["teacher_password"], PASSWORD_DEFAULT),
 					':teacher_grade_id'	=>	$teacher_grade_id,
 					':teacher_id'		=>	$_POST["teacher_id"]
 				);
 				$query = "
 				UPDATE tbl_teacher 
-				SET teacher_name = :teacher_name,  
+				SET teacher_name = :teacher_name, 
+				 
+				teacher_password = :teacher_password,
 				teacher_grade_id = :teacher_grade_id
 				
 				WHERE teacher_id = :teacher_id

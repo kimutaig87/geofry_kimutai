@@ -4,9 +4,6 @@
 
 include('database_connection.php');
 
-session_start();
-
-sleep(1);
 
 $admin_user_name = '';
 $admin_password = '';
@@ -37,10 +34,10 @@ else
 if($error == 0)
 {
 	$query = "
-	SELECT * FROM tbl_admin 
+	SELECT * FROM main_admin 
 	WHERE admin_user_name = '".$admin_user_name."'
 	";
-
+	
 	$statement = $connect->prepare($query);
 
 	if($statement->execute())
@@ -51,9 +48,9 @@ if($error == 0)
 			$result = $statement->fetchAll();
 			foreach($result as $row)
 			{
-				if(password_verify($admin_password, $row["admin_password"]))
+				if(password_verify($_POST["admin_password"], $row["admin_password"]))
 				{
-					$_SESSION["admin_id"] = $row["admin_id"];
+					$_SESSION["main_admin_id"] = $row["main_admin_id"];
 				}
 				else
 				{

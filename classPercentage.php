@@ -13,6 +13,12 @@ include('header.php');
 table.dataTable tbody tr.myodd {
       background-color: #D9E1F2;
  }
+ table.dataTable tbody tr.myeven:hover {
+      background-color: skyblue;
+ }
+ table.dataTable tbody tr.myodd:hover {
+      background-color: skyblue;
+ }
 
 
 .select2-dropdown {
@@ -25,12 +31,6 @@ table.dataTable tbody tr.myodd {
   font-size: 23px;
   font-family: sans-serif;
 }
- table.dataTable tbody tr.myeven:hover {
-      background-color: skyblue;
- }
- table.dataTable tbody tr.myodd:hover {
-      background-color: skyblue;
- }
 
 
   </style>
@@ -51,9 +51,9 @@ table.dataTable tbody tr.myodd {
           <thead>
             <tr>
               
+              <th>#Serial_Number</th>
               <th>Class Name</th>
               <th>Attendance Percentage</th>
-              <th>Passed Target</th>
               
              
             </tr>

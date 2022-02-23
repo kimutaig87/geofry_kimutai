@@ -2,7 +2,7 @@
 
 //student_action.php
 
-include('../main_admin/database_connection.php');
+include('database_connection.php');
 
 session_start();
 
@@ -109,9 +109,10 @@ if(isset($_POST["action"]))
 			$sub_array = array();
 			
 			
+			
+			$sub_array[] = $row["grade_id"];
 			$sub_array[] = $row["grade_name"];
 			$sub_array[] = get_grade_percentage($connect, $row["attendance_grade_id"]);
-			$sub_array[] = get_grade_remarks($connect,$row["attendance_grade_id"]);
             
 			$data[] = $sub_array;
 		}
